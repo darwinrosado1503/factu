@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planes y membresía · Factú</title>
+<meta name="description" content="Elige tu plan de Factú y actívalo al momento. Membresía mensual, cancelas cuando quieras.">
+<meta name="theme-color" content="#0B1620">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="estilo.css">
+<style>
+.planes-p{padding:56px 0 80px}
+.planes-p h1{font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.035em;line-height:1.08;margin:0 0 10px}
+.planes-p .sub{color:var(--suave);margin:0 0 36px;max-width:40em;font-size:1.05rem}
+.planes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:28px}
+@media (max-width:760px){.planes{grid-template-columns:1fr}}
+.plan{position:relative;text-align:left;background:var(--panel);border:2px solid var(--linea);border-radius:18px;padding:26px;cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,box-shadow .15s}
+.plan:hover{border-color:#9DB4C8}
+.plan[aria-checked="true"]{border-color:var(--azul);box-shadow:0 0 0 4px rgba(31,90,133,.12)}
+.plan .nom{font-size:1.2rem;font-weight:700}
+.plan .pre{font-size:2.3rem;font-weight:700;letter-spacing:-.03em;margin:8px 0 2px}
+.plan .pre small{font-size:.95rem;font-weight:500;color:var(--suave)}
+.plan p{color:var(--suave);margin:0 0 14px;font-size:.95rem}
+.plan ul{list-style:none;padding:0;margin:0}
+.plan li{padding:5px 0 5px 26px;position:relative;font-size:.94rem}
+.plan li::before{content:"";position:absolute;left:0;top:10px;width:16px;height:16px;border-radius:50%;background:rgba(44,122,75,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232C7A4B' stroke-width='3'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/11px no-repeat}
+.plan .marca-p{position:absolute;top:18px;right:18px;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--ambar);color:#1d1406}
+.plan .sel{position:absolute;top:22px;right:22px;width:22px;height:22px;border-radius:50%;border:2px solid var(--linea)}
+.plan[aria-checked="true"] .sel{border-color:var(--azul);background:radial-gradient(circle,var(--azul) 45%,transparent 50%)}
+.plan .marca-p + .sel{display:none}
+.caja{background:var(--panel);border:1px solid var(--linea);border-radius:18px;padding:26px;max-width:640px}
+.caja h2{margin:0 0 6px;font-size:1.3rem}
+.campo{margin-bottom:14px}
+.campo label{display:block;font-size:.8rem;font-weight:600;color:var(--suave);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.campo input{width:100%;height:46px;border-radius:10px;border:1px solid var(--linea);background:var(--fondo);color:var(--tinta);padding:0 14px;font:inherit}
+.campo input:focus{outline:2px solid rgba(31,90,133,.35);border-color:var(--azul)}
+.campo .ayuda{font-size:.82rem;color:var(--suave);margin-top:5px}
+.fila2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.fila2{grid-template-columns:1fr}}
+.mono-i{font-family:ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--suave);margin:6px 0 18px}
+.chk input{margin-top:3px;width:18px;height:18px}
+.err{background:#FBEAEA;color:#8C2F39;border:1px solid #F0C6C6;border-radius:10px;padding:10px 14px;font-size:.92rem;margin-bottom:14px}
+.btp{width:100%;height:52px;border:0;border-radius:12px;background:var(--azul);color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer}
+.btp:disabled{opacity:.6;cursor:wait}
+.resumen{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:12px;background:var(--fondo);border:1px solid var(--linea);margin-bottom:16px;font-size:.95rem}
+.resumen b{font-size:1.1rem}
+.ok{text-align:center;padding:24px 10px}
+.ok .ic-ok{width:64px;height:64px;border-radius:50%;background:rgba(44,122,75,.12);display:grid;place-items:center;margin:0 auto 14px}
+.ok .ic-ok svg{width:34px;height:34px;color:var(--ok)}
+.ok h2{font-size:1.6rem;margin:0 0 8px}
+.ok p{color:var(--suave);margin:0 auto 10px;max-width:30em}
+.notas{color:var(--suave);font-size:.88rem;margin-top:18px;max-width:640px}
+.notas li{margin-bottom:6px}
+.pronto-c{background:var(--panel);border:1px dashed var(--linea);border-radius:18px;padding:30px;text-align:center;color:var(--suave)}
+</style>
+</head>
+<body>
+<header class="barra"><div class="cont">
+  <a class="marca" href="index.html"><img src="img/icono-192.png" alt="">Factú</a>
+  <nav><a href="index.html#funciones">Funciones</a><a href="index.html#preguntas">Preguntas</a><a class="bt-sm" href="index.html#descargar">Descargar</a></nav>
+</div></header>
+
+<main class="cont planes-p">
+  <h1>Elige tu plan de Factú</h1>
+  <p class="sub">Membresía mensual: pagas con tarjeta o PayPal, Factú se activa solo en segundos y cancelas cuando quieras. Lo que cargaste en la prueba se queda.</p>
+
+  <div id="zona"><div class="pronto-c">Cargando los planes…</div></div>
+
+  <ul class="notas">
+    <li>El cobro se repite cada mes en la misma fecha. Puedes cancelar desde tu cuenta de PayPal y Factú sigue funcionando hasta el final del mes pagado.</li>
+    <li>Si un cobro falla, Factú sigue vendiendo unos días mientras se resuelve; después pausa las ventas, pero tus datos nunca se borran.</li>
+    <li>La licencia es para una computadora. Para otra PC, compra otra membresía con el código de esa computadora.</li>
+  </ul>
+</main>
+
+<footer><div class="cont"><span>Factú es un producto de <a href="https://darwinrosado1503.github.io/" style="color:inherit">Darkcore Soft &amp; Development</a> · © 2026</span><nav><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a><a href="https://wa.me/14153121667">Soporte</a></nav></div></footer>
+
+<script>
+// Dirección del servidor de membresías (se completa al publicarlo en Cloudflare)
+window.DARKCORE_API = window.DARKCORE_API || 'https://darkcore-api.POR_ASIGNAR.workers.dev';
+(function(){
+  'use strict';
+  const API=window.DARKCORE_API,zona=document.getElementById('zona'),q=new URLSearchParams(location.search);
+  const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const EXTRA={basico:['Ventas, facturas con NCF y devoluciones','Inventario, clientes, crédito y gastos','Caja, cierres y ganancias','1 celular o tablet con Factú Móvil','Soporte por WhatsApp'],
+    pro:['Todo lo del plan Básico','Facturación electrónica (e-CF) con la DGII','3 celulares o tablets con Factú Móvil','Ayuda para certificarte como emisor electrónico','Soporte prioritario']};
+  let P=null,elegido=q.get('plan')==='basico'?'basico':'pro',paso=1,ref=null;
+  const dinero=(v,m)=>v==null?null:(m==='USD'?'US$':m+' ')+Number(v).toLocaleString('es-DO',{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2});
+  const equipoQ=String(q.get('equipo')||'').toUpperCase().replace(/[^0-9A-F-]/g,'').slice(0,19);
+  function pintar(){
+    const venta=P.planes.filter(p=>p.precio>0&&p.paypalPlan);
+    if(!venta.length){zona.innerHTML='<div class="pronto-c"><b style="color:var(--tinta)">Muy pronto podrás pagar aquí.</b><br>Mientras tanto escríbenos por <a href="https://wa.me/14153121667?text=Quiero%20la%20membres%C3%ADa%20de%20Fact%C3%BA">WhatsApp</a> y te activamos al momento.</div>';return;}
+    if(!venta.some(p=>p.id===elegido))elegido=venta[0].id;
+    zona.innerHTML=`<div class="planes" role="radiogroup" aria-label="Planes">${P.planes.map(p=>{const ok=p.precio>0&&p.paypalPlan;return `<button type="button" class="plan" role="radio" aria-checked="${p.id===elegido}" data-p="${p.id}" ${ok?'':'disabled style="opacity:.55;cursor:default"'}>
+        ${p.id==='pro'?'<span class="marca-p">Recomendado</span>':''}<span class="sel"></span>
+        <div class="nom">${esc(p.nombre)}</div><div class="pre">${ok?esc(dinero(p.precio,P.moneda))+'<small> / mes</small>':'<small>Muy pronto</small>'}</div>
+        <p>${esc(p.descripcion)}</p><ul>${(EXTRA[p.id]||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></button>`;}).join('')}</div><div class="caja" id="caja"></div>`;
+    zona.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',()=>{if(paso!==1||b.disabled)return;elegido=b.dataset.p;zona.querySelectorAll('[data-p]').forEach(x=>x.setAttribute('aria-checked',x===b));}));
+    formulario();}
+  function formulario(){const c=document.getElementById('caja');paso=1;
+    c.innerHTML=`<h2>Tus datos</h2><p style="color:var(--suave);margin:0 0 18px;font-size:.94rem">Te enviaremos el recibo de PayPal a tu correo.</p>
+      <div id="f-err" class="err" role="alert" hidden></div>
+      <div class="fila2"><div class="campo"><label for="f-nom">Tu nombre</label><input id="f-nom" autocomplete="name"></div><div class="campo"><label for="f-neg">Nombre del negocio</label><input id="f-neg" autocomplete="organization"></div></div>
+      <div class="fila2"><div class="campo"><label for="f-em">Correo</label><input id="f-em" type="email" autocomplete="email"></div><div class="campo"><label for="f-tel">WhatsApp (opcional)</label><input id="f-tel" type="tel" autocomplete="tel"></div></div>
+      <div class="campo"><label for="f-eq">Código del equipo</label><input id="f-eq" class="mono-i" placeholder="XXXX-XXXX-XXXX-XXXX" value="${esc(equipoQ)}" ${equipoQ.length===19?'readonly':''}>
+        <div class="ayuda">${equipoQ.length===19?'Lo puso Factú por ti.':'Lo encuentras en Factú, en la pantalla de activación o en Configuración → Licencia.'}</div></div>
+      <label class="chk"><input type="checkbox" id="f-ter"><span>Acepto los <a href="terminos.html" target="_blank">términos</a> y el cobro mensual hasta que cancele.</span></label>
+      <button class="btp" id="f-ok">Continuar al pago</button>`;
+    const err=t=>{const e=document.getElementById('f-err');e.textContent=t;e.hidden=!t;};
+    document.getElementById('f-eq').addEventListener('input',e=>{let v=e.target.value.toUpperCase().replace(/[^0-9A-F]/g,'').slice(0,16);e.target.value=v.match(/.{1,4}/g)?.join('-')||'';});
+    document.getElementById('f-ok').addEventListener('click',async e=>{err('');const d={plan:elegido,nombre:val('f-nom'),negocio:val('f-neg'),email:val('f-em'),tel:val('f-tel'),equipo:val('f-eq')};
+      if(d.nombre.length<2)return err('Escribe tu nombre.');if(d.negocio.length<2)return err('Escribe el nombre del negocio.');
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email))return err('Escribe un correo válido.');if(!/^[0-9A-F]{4}(-[0-9A-F]{4}){3}$/.test(d.equipo))return err('El código del equipo tiene 16 letras y números, así: DD5B-8A9F-8A5D-16A0.');
+      if(!document.getElementById('f-ter').checked)return err('Para seguir, acepta los términos.');
+      const b=e.currentTarget;b.disabled=true;b.textContent='Preparando el pago…';
+      try{const r=await fetch(API+'/api/suscripcion/preparar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json();
+        if(!j.ok){b.disabled=false;b.textContent='Continuar al pago';return err(j.error||'No se pudo preparar el pago.');}
+        ref=j.ref;pagar(d,j.paypalPlan);}
+      catch(x){b.disabled=false;b.textContent='Continuar al pago';err('No hay conexión con el servidor. Intenta de nuevo.');}});}
+  const val=id=>document.getElementById(id).value.trim();
+  function pagar(d,planId){paso=2;const c=document.getElementById('caja'),p=P.planes.find(x=>x.id===d.plan);
+    c.innerHTML=`<h2>Pago</h2><div class="resumen"><span>Factú ${esc(p.nombre)} · ${esc(d.negocio)}<br><small style="color:var(--suave)">Equipo ${esc(d.equipo)}</small></span><b>${esc(dinero(p.precio,P.moneda))}/mes</b></div>
+      <div id="pp"><div style="text-align:center;color:var(--suave);padding:20px">Cargando PayPal…</div></div><div id="p-err" class="err" role="alert" hidden></div>
+      <button type="button" class="bt" id="p-atras" style="background:none;color:var(--suave);padding:8px 0">‹ Cambiar datos</button>`;
+    document.getElementById('p-atras').addEventListener('click',formulario);
+    const err=t=>{const e=document.getElementById('p-err');e.textContent=t;e.hidden=!t;};
+    sdk().then(pp=>{document.getElementById('pp').innerHTML='';pp.Buttons({style:{shape:'rect',label:'subscribe',height:48},
+      createSubscription:(data,actions)=>actions.subscription.create({plan_id:planId,custom_id:ref,application_context:{brand_name:'Factú',shipping_preference:'NO_SHIPPING',user_action:'SUBSCRIBE_NOW'}}),
+      onApprove:async data=>{document.getElementById('pp').innerHTML='<div style="text-align:center;color:var(--suave);padding:20px">Confirmando el pago…</div>';
+        let j=null;try{const r=await fetch(API+'/api/suscripcion/aprobada',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref,subscriptionID:data.subscriptionID})});j=await r.json();}catch(x){}
+        listo(d,p,j&&j.ok?j:null);},
+      onError:()=>err('PayPal no pudo completar el pago. Revisa los datos de la tarjeta o intenta con otra.'),
+      onCancel:()=>err('Cancelaste el pago. Cuando quieras, vuelve a intentarlo.')}).render('#pp');})
+      .catch(()=>err('No se pudo cargar PayPal. Revisa tu conexión y recarga la página.'));}
+  function listo(d,p,j){paso=3;zona.innerHTML=`<div class="caja ok" style="margin:0 auto"><div class="ic-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
+      <h2>¡Listo, bienvenido a Factú ${esc(p.nombre)}!</h2>
+      <p>${j?`Tu membresía está activa${j.vence?` y se renueva el ${esc(j.vence.split('-').reverse().join('/'))}`:''}.`:'Recibimos tu pago. La activación puede tardar unos minutos.'}</p>
+      <p><b style="color:var(--tinta)">Vuelve a Factú:</b> se activa solo en unos segundos. Si lo tenías cerrado, ábrelo y listo.</p>
+      <p style="font-size:.88rem">Referencia ${esc(ref)} · Equipo ${esc(d.equipo)}</p></div>`;}
+  let sdkP=null;
+  function sdk(){if(window.paypal)return Promise.resolve(window.paypal);if(sdkP)return sdkP;
+    sdkP=new Promise((ok,mal)=>{const s=document.createElement('script');s.src='https://www.paypal.com/sdk/js?client-id='+encodeURIComponent(P.clientId)+'&vault=true&intent=subscription&currency='+encodeURIComponent(P.moneda);
+      s.onload=()=>window.paypal?ok(window.paypal):mal();s.onerror=()=>{sdkP=null;mal();};document.head.appendChild(s);});return sdkP;}
+  if(/POR_ASIGNAR/.test(API)){P={planes:[]};pintar();return;}
+  fetch(API+'/api/planes').then(r=>r.json()).then(j=>{P=j;pintar();}).catch(()=>{zona.innerHTML='<div class="pronto-c">No se pudieron cargar los planes. Recarga la página o escríbenos por <a href="https://wa.me/14153121667">WhatsApp</a>.</div>';});
+})();
+</script>
+</body>
+</html>
