@@ -1,0 +1,26 @@
+# Publica una versión: los archivos llegan en partes por una rama "subida-<versión>",
+# se unen, se publican como descarga (Releases) y la rama se borra.
+name: Publicar descargas
+on:
+  push:
+    branches: ['subida-*']
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unir y publicar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${GITHUB_REF_NAME#subida-}"
+          mkdir -p salida
+          for base in $(ls *.parte* 2>/dev/null | sed 's/\.parte[0-9]*$//' | sort -u); do cat "$base".parte* > "salida/$base"; done
+          for f in *.apk *.exe; do [ -f "$f" ] && cp "$f" salida/; done
+          ls -la salida
+          (cd salida && sha256sum * > SHA256.txt)
+          NOTAS="$(cat NOTAS.md 2>/dev/null || echo "Factú $V")"
+          gh release create "v$V" salida/* --title "Factú $V" --notes "$NOTAS" --latest
+          git push origin --delete "$GITHUB_REF_NAME"
